@@ -1,14 +1,4 @@
-# 汇编语言与接口技术
-
-## 基础
-
-`2^10 = 1KB`
-
-`2^20 = 1MB`
-
-`2^30 = 1GB`
-
-## 微处理器管理模式(8086)
+# 微处理器管理模式(8086)
 
 ### 通用寄存器&段寄存器
 
@@ -44,7 +34,7 @@
 | DF    | 方向标志                   |
 | TF    | 陷阱标志                   |
 
-<figure><img src=".gitbook/assets/image (2) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (2) (1).png" alt=""><figcaption></figcaption></figure>
 
 ```armasm
 MOV AL, 80H
@@ -64,9 +54,9 @@ MOV AL, -128
 
 `DS`同理
 
-<figure><img src=".gitbook/assets/image (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1) (1).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src=".gitbook/assets/image (6).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (6).png" alt=""><figcaption></figcaption></figure>
 
 ### 保护模式
 
@@ -74,7 +64,7 @@ MOV AL, -128
 
 在保护模式下，段寄存器存放一个**索引**，称为**段选择符**，段选择符从全局描述符表或局部描述符中找到8个字节长的段描述符
 
-<figure><img src=".gitbook/assets/image (2) (2).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (2) (2).png" alt=""><figcaption></figcaption></figure>
 
 0-1位存放RPL，表示将要访问的段的特权级0\~3
 
@@ -90,7 +80,7 @@ MOV AL, -128
 
 全局描述表寄存器（Global Descriptor Table Register，GDTR），定义全局描述符表的基址和限长
 
-<figure><img src=".gitbook/assets/image (5).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (5).png" alt=""><figcaption></figcaption></figure>
 
 #### 局部描述符表
 
@@ -102,21 +92,21 @@ MOV AL, -128
 
 LDTR的内容是LDT描述符在GDT中的索引，先由GDTR确定GDT基地，再从LDTR得到LDT描述符在GDT中的位置，最后从LDT描述符中得到LDT的基地和限长
 
-<figure><img src=".gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
 
 #### 保护模式下的寻址
 
 保护模式下寻址通过CS(16):EIP(32)，得到的地址是虚拟地址，一共48位，有效位46位
 
-<figure><img src=".gitbook/assets/image (4).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (4).png" alt=""><figcaption></figcaption></figure>
 
 #### 段描述符
 
-<figure><img src=".gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
 
 #### 虚拟地址到物理地址
 
-<figure><img src=".gitbook/assets/image (7).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (7).png" alt=""><figcaption></figcaption></figure>
 
 ### 页式内存管理
 
@@ -128,7 +118,7 @@ LDTR的内容是LDT描述符在GDT中的索引，先由GDTR确定GDT基地，再
 
 假设每页大小为4KB，分页管理由三项构成：页目录表、页表、页面
 
-<figure><img src=".gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
 
 页目录表存储页表的索引，页表存储页面的索引，页面存储物理地址
 
@@ -136,4 +126,4 @@ LDTR的内容是LDT描述符在GDT中的索引，先由GDTR确定GDT基地，再
 
 #### 页表寻址
 
-<figure><img src=".gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
