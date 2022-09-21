@@ -64,7 +64,7 @@ MOV AL, -128
 
 `DS`同理
 
-<figure><img src=".gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 <figure><img src=".gitbook/assets/image (6).png" alt=""><figcaption></figcaption></figure>
 
@@ -74,7 +74,7 @@ MOV AL, -128
 
 在保护模式下，段寄存器存放一个**索引**，称为**段选择符**，段选择符从全局描述符表或局部描述符中找到8个字节长的段描述符
 
-<figure><img src=".gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image (2) (2).png" alt=""><figcaption></figcaption></figure>
 
 0-1位存放RPL，表示将要访问的段的特权级0\~3
 
@@ -113,3 +113,27 @@ LDTR的内容是LDT描述符在GDT中的索引，先由GDTR确定GDT基地，再
 #### 段描述符
 
 <figure><img src=".gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+
+#### 虚拟地址到物理地址
+
+<figure><img src=".gitbook/assets/image (7).png" alt=""><figcaption></figcaption></figure>
+
+### 页式内存管理
+
+#### 分页
+
+分段管理更加精确来减少内存浪费，但是每次都需要将段全部装入内存，全部从内存释放，效率很低。
+
+分页管理会将那些被需要的页装入内存，更加灵活。
+
+假设每页大小为4KB，分页管理由三项构成：页目录表、页表、页面
+
+<figure><img src=".gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+
+页目录表存储页表的索引，页表存储页面的索引，页面存储物理地址
+
+32位地址中，31-22位（10位）记录页目录索引，21-12位（10位）记录页表索引，11-0位（12位）记录页面偏移量
+
+#### 页表寻址
+
+<figure><img src=".gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
