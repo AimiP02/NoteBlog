@@ -34,7 +34,7 @@
 | DF    | 方向标志                   |
 | TF    | 陷阱标志                   |
 
-<figure><img src="../../.gitbook/assets/image (2) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (2) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ```armasm
 MOV AL, 80H
@@ -118,7 +118,7 @@ LDTR的内容是LDT描述符在GDT中的索引，先由GDTR确定GDT基地，再
 
 假设每页大小为4KB，分页管理由三项构成：页目录表、页表、页面
 
-<figure><img src="../../.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (2) (1).png" alt=""><figcaption></figcaption></figure>
 
 页目录表存储页表的索引，页表存储页面的索引，页面存储物理地址
 
@@ -126,7 +126,7 @@ LDTR的内容是LDT描述符在GDT中的索引，先由GDTR确定GDT基地，再
 
 #### 页表寻址
 
-<figure><img src="../../.gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1) (2).png" alt=""><figcaption></figcaption></figure>
 
 #### 中断描述符表寄存器
 
@@ -182,3 +182,19 @@ $$
 
 > 数字越大特权级越低
 
+<figure><img src="../../.gitbook/assets/image (1).png" alt=""><figcaption><p>特权级检查</p></figcaption></figure>
+
+#### 对数据段的保护访问
+
+<figure><img src="../../.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+
+#### 对程序的保护
+
+对直接转移的保护
+
+1. 同一代码段内转移时，CS不变，特权级不发生变化，只需要检查限长
+2. 段间调用或跳转，检查限长、特权级CPL和DPL
+
+* CPL=DPL，允许跳转和调用
+* CPL\<DPL，禁止。高特权级不能转移到低特权级
+* CPL>DPL，此时要检查段描述符的C位。如果C位为1，表示这是一致代码段，允许跳转和调用
