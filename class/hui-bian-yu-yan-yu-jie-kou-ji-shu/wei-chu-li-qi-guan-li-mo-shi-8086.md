@@ -56,7 +56,7 @@ MOV AL, -128
 
 <figure><img src="../../.gitbook/assets/image (1) (1).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../../.gitbook/assets/image (6).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (6) (1).png" alt=""><figcaption></figcaption></figure>
 
 ### 保护模式
 
@@ -80,7 +80,7 @@ MOV AL, -128
 
 全局描述表寄存器（Global Descriptor Table Register，GDTR），定义全局描述符表的基址和限长
 
-<figure><img src="../../.gitbook/assets/image (5).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (5) (1).png" alt=""><figcaption></figcaption></figure>
 
 #### 局部描述符表
 
@@ -92,7 +92,7 @@ MOV AL, -128
 
 LDTR的内容是LDT描述符在GDT中的索引，先由GDTR确定GDT基地，再从LDTR得到LDT描述符在GDT中的位置，最后从LDT描述符中得到LDT的基地和限长
 
-<figure><img src="../../.gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (3) (1).png" alt=""><figcaption></figcaption></figure>
 
 #### 保护模式下的寻址
 
@@ -102,11 +102,11 @@ LDTR的内容是LDT描述符在GDT中的索引，先由GDTR确定GDT基地，再
 
 #### 段描述符
 
-<figure><img src="../../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (6).png" alt=""><figcaption></figcaption></figure>
 
 #### 虚拟地址到物理地址
 
-<figure><img src="../../.gitbook/assets/image (7).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (7) (1).png" alt=""><figcaption></figcaption></figure>
 
 ### 页式内存管理
 
@@ -127,3 +127,58 @@ LDTR的内容是LDT描述符在GDT中的索引，先由GDTR确定GDT基地，再
 #### 页表寻址
 
 <figure><img src="../../.gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
+
+#### 中断描述符表寄存器
+
+中断描述符表寄存器（Interrupt Descriptor Table Register，IDTR），48位寄存器。
+
+低16位是限长，给出中断描述符表（IDT）的字节大小（其值比IDT的长度小1）
+
+高32位是线性地址，指向IDT的基地址
+
+<figure><img src="../../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+
+### 为什么不用EIP直接指向虚拟地址？
+
+为了确保**多任务**的安全性，单任务情况下EIP可以直接指向内存
+
+### 任务
+
+保护模式下，在任何时刻都有一个当前任务，由TR寄存器指定。
+
+每个任务都由两个部分组成：任务执行环境（Task Executation Space，TES）、任务状态段（Task State Segment，TSS）
+
+<figure><img src="../../.gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
+
+#### 任务状态段
+
+<figure><img src="../../.gitbook/assets/image (9).png" alt=""><figcaption></figcaption></figure>
+
+TSS描述符放在GDT中；TR内容为选择符，指出TSS描述符在GDT中的顺序号
+
+切换任务的时候，将CPU中各寄存器的当前值保存到TR所指定的TSS中，下一任务的TSS选择符装入TR
+
+#### TR取得TSS过程
+
+<figure><img src="../../.gitbook/assets/image (8).png" alt=""><figcaption></figcaption></figure>
+
+#### 任务切换
+
+<figure><img src="../../.gitbook/assets/image (7).png" alt=""><figcaption><p>直接任务切换</p></figcaption></figure>
+
+<figure><img src="../../.gitbook/assets/image (5).png" alt=""><figcaption><p>间接任务切换</p></figcaption></figure>
+
+### 特权级检查
+
+依据CPL、DPL、RPL来判断特权级是否满足要求：
+
+$$
+{\rm DPL} \geq max({\rm CPL,RPL})
+$$
+
+* CPL是**当前正在运行的程序的特权级** -> CS寄存器的最低两位
+* DPL是**描述符特权级**，位于段描述符中，表明什么样的特权级程序可以使用这个段
+* RPL是**请求特权级**（如果RPL大于CPL，当前程序降级和RPL匹配）
+
+> 数字越大特权级越低
+
