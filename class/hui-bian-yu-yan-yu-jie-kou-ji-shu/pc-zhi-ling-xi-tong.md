@@ -145,9 +145,74 @@ SS是栈基址，SP是栈顶地址
 
 任何一条二进制加、减法指令均适用于带符号数和无符号数运算
 
-* `ADD DST, SRC`&#x20;
+* 加法指令`ADD DST, SRC`&#x20;
 
 功能：(DST)+(SRC) -> DST
 
 标志：影响OF、SF、ZF、AF、PF、CF标志
 
+* 带进位加法指令`ADC DST, SRC`&#x20;
+
+功能：(DST)+(SRC)+CF -> DST
+
+标志：影响OF、SF、ZF、AF、PF、CF标志
+
+* 加1指令`INC DST`
+
+功能：(DST)+1 -> DST
+
+标志：除不影响CF标志外，影响其它五个算术运算特征标志
+
+| 指令           | 功能                  | 影响标志位             |
+| ------------ | ------------------- | ----------------- |
+| ADD DST, SRC | (DST)+(SRC)->DST    | OF/SF/ZF/AF/PF/CF |
+| ADC DST, STC | (DST)+(SRC)+CF->DST | OF/SF/ZF/AF/PE/CF |
+| INC DST      | (DST)+1->DST        | OF/SF/ZF/AF/PF    |
+
+#### 二进制减法指令
+
+* 减法指令`SUB DST, SRC`
+
+功能：(DST)-(SRC) -> DST
+
+标志：影响OF、SF、ZF、AF、PF、CF标志
+
+* 带借位减法指令`SBB DST, SRC`&#x20;
+
+功能：(DST)-(SRC)-CF->DST
+
+标志：影响OF、SF、ZF、AF、PF、CF标志
+
+* 减1指令`DEC DST`&#x20;
+
+功能：(DST)-1->DST
+
+标志：除不影响CF标志外，影响其它五个算术运算特征标志
+
+* **比较指令 `CMP DST, SRC`**
+
+功能：(DST)-(SRC)
+
+标志：影响OF、SF、ZF、AF、PF、CF标志
+
+* 求补指令`NEG DST`&#x20;
+
+功能：对目标操作数（含符号位）求反加1，并且把结果送回目标；利用NEG指令可实现求一个数的相反数
+
+标志：影响OF、SF、ZF、AF、PF、CF标志
+
+> NEG对CF和OF的影响如下：
+>
+> a.对操作数所能表示的最小负数(例若操作数是8位则为－128)求补,原操作数不变,但OF被置1
+>
+> b.当操作数为0时，清0 CF
+>
+> c.对非0操作数求补后，置1 CF
+
+| 指令           | 功能                  | 影响标志位             |
+| ------------ | ------------------- | ----------------- |
+| SUB DST, SRC | (DST)-(SRC)->DST    | OF/SF/ZF/AF/PF/CF |
+| SBB DST, SRC | (DST)-(SRC)-CF->DST | OF/SF/ZF/AF/PF/CF |
+| DEC DST      | (DST)-1->DST        | OF/SF/ZF/AF/PF    |
+| CMP DST, SRC | (DST)-(SRC)         | OF/SF/ZF/AF/PF/CF |
+| NEG DST      | 求反加1                | OF/SF/ZF/AF/PF/CF |
