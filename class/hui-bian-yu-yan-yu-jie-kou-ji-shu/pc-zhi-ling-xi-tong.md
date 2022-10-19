@@ -216,3 +216,9 @@ SS是栈基址，SP是栈顶地址
 | DEC DST      | (DST)-1->DST        | OF/SF/ZF/AF/PF    |
 | CMP DST, SRC | (DST)-(SRC)         | OF/SF/ZF/AF/PF/CF |
 | NEG DST      | 求反加1                | OF/SF/ZF/AF/PF/CF |
+
+### 位运算指令
+
+#### 逻辑运算指令
+
+<figure><img src="../../.gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
