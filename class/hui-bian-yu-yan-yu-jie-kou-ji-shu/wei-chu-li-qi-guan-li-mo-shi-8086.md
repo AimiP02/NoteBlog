@@ -68,7 +68,7 @@ MOV AL, -128
 
 在保护模式下，段寄存器存放一个**索引**，称为**段选择符**，段选择符从全局描述符表或局部描述符中找到8个字节长的段描述符
 
-<figure><img src="../../.gitbook/assets/image (2) (2).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (2) (2) (1).png" alt=""><figcaption></figcaption></figure>
 
 0-1位存放RPL，表示将要访问的段的特权级0\~3
 
@@ -140,7 +140,7 @@ LDTR的内容是LDT描述符在GDT中的索引，先由GDTR确定GDT基地，再
 
 高32位是线性地址，指向IDT的基地址
 
-<figure><img src="../../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
 
 ### 为什么不用EIP直接指向虚拟地址？
 
@@ -186,11 +186,11 @@ $$
 
 > 数字越大特权级越低
 
-<figure><img src="../../.gitbook/assets/image (1) (3).png" alt=""><figcaption><p>特权级检查</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1).png" alt=""><figcaption><p>特权级检查</p></figcaption></figure>
 
 #### 对数据段的保护访问
 
-<figure><img src="../../.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (2) (2).png" alt=""><figcaption></figcaption></figure>
 
 #### 对程序的保护
 

@@ -221,4 +221,6 @@ SS是栈基址，SP是栈顶地址
 
 #### 逻辑运算指令
 
-<figure><img src="../../.gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+
+作业：91页代码段改成32位多个双字的减法；3.11、3.12、3.14、3.16
